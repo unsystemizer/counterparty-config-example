@@ -41,7 +41,7 @@ counterparty-cli can be installed with pip3 (`sudo pip3 install counterparty-cli
 
 ### Bitcoin Core 0.10.2 (and soon 0.11)
 
-Default location: `/home/USER/.bitcoin/bitcoin.conf` (or optionally `bitcoin.testnet.conf`)
+Default location: `/home/USER/.bitcoin/bitcoin.conf` (if you have a separate config file for testnet, consider using `bitcoin.testnet.conf`).
 
 ```
 $ cd $HOME; cat .bitcoin/bitcoin.testnet.conf
@@ -61,9 +61,9 @@ If you only run Bitcoin Core on testnet (i.e. you have no `bitcoin.conf`), consi
 
 ### Counterparty Client and Server (counterparty-cli)
 
-I made my configuration files to require `sudo` because they contain wallet password(s). For testnet this doesn't necessarily has to be done this way. 
+I made Counterparty to require `sudo` because they contain wallet password(s). For testnet this could be relaxed. 
 
-Although these are used on testnet I deliberately did not name the files like `server.testnet.conf` because then I would have to pass the config file name to `counterparty-client`.  Because I run testnet most of the time, this makes it easier to use the CLI.
+Although these are used on testnet I deliberately did not name the files like `server.testnet.conf` because then I would have to pass the config file path and name to `counterparty-client`.  Because I run testnet most of the time, this makes it easier to use the CLI.
 
 #### Server
 
