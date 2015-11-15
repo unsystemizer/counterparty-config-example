@@ -5,19 +5,19 @@ To modify for mainnet, remove `testnet=1` from files and commands and come up wi
 
 Tested with:
 
-* Bitcoin Core 0.10.2 (0.11 should work the same)
-* counterparty-cli 1.1.1 and counterparty-lib 9.51.3
+* Bitcoin Core 0.10.2 (or 0.11.1)
+* counterparty-cli 1.1.1 and counterparty-lib 9.52
 
 ```
 $ counterparty-client --version
-counterparty-client v1.1.1; counterparty-lib v9.51.3
+counterparty-client v1.1.1; counterparty-lib v9.52
 $ bitcoin-0.10.2/bin/bitcoin-cli --version
 Bitcoin Core RPC client version addrindex-0.10.2
 ```
 
 ## Download and Install
 
-Follow official documentation:
+Follow the official documentation:
 
 * Bitcoin Core with addrindex patch: https://github.com/CounterpartyXCP/Documentation/blob/master/Installation/bitcoin_core.md
 * counterparty-cli (server + client; counterparty-lib installs as dependency): https://github.com/CounterpartyXCP/Documentation/blob/master/CLI/counterparty-cli.md
@@ -39,9 +39,9 @@ counterparty-cli can be installed with pip3 (`sudo pip3 install counterparty-cli
 
 ## Configuration Files and Their Locations
 
-### Bitcoin Core 0.10.2 (and soon 0.11)
+### Bitcoin Core 0.10.2 (or 0.11.1)
 
-Default location: `/home/USER/.bitcoin/bitcoin.conf` (if you have a separate config file for testnet, consider using `bitcoin.testnet.conf`).
+Default location: `/home/USER/.bitcoin/bitcoin.conf` (if you have a separate config file for testnet, consider using `bitcoin.testnet.conf`; replace `USER` with your user name).
 
 ```
 $ cd $HOME; cat .bitcoin/bitcoin.testnet.conf
@@ -171,10 +171,10 @@ Traceback (most recent call last):
 counterpartycli.util.RPCError: 503 SERVICE UNAVAILABLE {"code": -32000, "data": "Bitcoind is running about 26293 hours behind.", "message": "Server error"}
 ```
 
-Above error means the local instance of bitcoind is running behind, but the client is working fine.
+The error means the local instance of bitcoind is running behind, but the client is working fine.
 
 ## Counterparty Cheat Sheet
 
-I put together a cheat sheet that applies to counterparty-lib 9.51.3 and Bitcoin Core 0.10.2 (as well as 0.11). It cointains above information for Ubuntu 14.04 and Windows 7 x64:
+I put together a cheat sheet that applies to counterparty-lib 9.52 and BTCDrak's Bitcoin Core 0.10.2 (as well as 0.11.1). It cointains the above information for Ubuntu 14.04 and Windows 7/8/10 x64:
 
-https://www.dropbox.com/s/7mx7uphhf12fmga/counterparty-lib-cheatsheet_9.51.3.pdf
+https://www.dropbox.com/s/et1t7ctio4u6k20/counterparty-lib-9.52-cheatsheet.pdf
