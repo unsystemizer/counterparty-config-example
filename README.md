@@ -49,11 +49,12 @@ rpcpassword = PaSS
 txindex = 1
 server = 1
 addrindex = 1
-# rpcthreads = 1000       # Counterparty Federated Node has this, but it's not necessary in my opinion
+# rpcthreads = 1000       # Counterparty Federated Node still has this, but it's not necessary in my opinion
 rpctimeout = 300
 testnet = 1
-# minrelaytxfee = 0.00005 # unnecessary since Bitcoin Core 0.12; old antispam measure from 0.11
-# limitfreerelay = 0      # unnecessary since Bitcoin Core 0.12; old antispam measure from 0.11
+# maxmempool = 32         # Optional "RAM exhaustion protection" (the default is 300 MB) for small systems
+# minrelaytxfee = 0.00005 # Now rather unnecessary since Bitcoin Core 0.12 manages this automatically
+# limitfreerelay = 0      # Now rather unnecessary since Bitcoin Core 0.12 manages this automatically
 ```
 
 If you only run Bitcoin Core on testnet (i.e. you have no need for `bitcoin.conf`), consider renaming the configuration file to `bitcoin.conf` - it's probably easier that way because then you can run Bitcoin Core without `-testnet`. 
