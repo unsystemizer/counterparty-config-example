@@ -5,24 +5,23 @@ To modify for mainnet, remove `testnet=1` from files and commands and come up wi
 
 Tested with:
 
-* Bitcoin Core 0.10.2 (or 0.11.1)
-* counterparty-cli 1.1.1 and counterparty-lib 9.52
+* Bitcoin Core 0.12 (https://github.com/btcdrak/bitcoin/releases/tag/v0.12.0-addrindex)
+* counterparty-cli 1.1.1 and counterparty-lib 9.54
 
 ```
 $ counterparty-client --version
-counterparty-client v1.1.1; counterparty-lib v9.52
-$ bitcoin-0.10.2/bin/bitcoin-cli --version
-Bitcoin Core RPC client version addrindex-0.10.2
+counterparty-client v1.1.1; counterparty-lib v9.54
+$ bitcoin-0.12.0/bin/bitcoin-cli --version
+Bitcoin Core RPC client version addrindex-0.12.0
 ```
 
 ## Download and Install
 
 Follow the official documentation:
 
-* Bitcoin Core with addrindex patch: https://github.com/CounterpartyXCP/Documentation/blob/master/Installation/bitcoin_core.md
-* counterparty-cli (server + client; counterparty-lib installs as dependency): https://github.com/CounterpartyXCP/Documentation/blob/master/CLI/counterparty-cli.md
-
-counterparty-cli can be installed with pip3 (`sudo pip3 install counterparty-cli`) or from source. I used the latter approach because currently the pip approach does not pre-create configuration directories and paths (see https://github.com/CounterpartyXCP/counterparty-cli/issues/60).
+* Install Bitcoin Core 0.12 with addrindex patch: https://github.com/CounterpartyXCP/Documentation/blob/master/Installation/bitcoin_core.md 
+* Install counterparty-cli (server + client package; `counterparty-lib` installs as their dependency): https://github.com/CounterpartyXCP/Documentation/blob/master/CLI/counterparty-cli.md
+counterparty-cli can be installed with pip3 (`sudo pip3 install counterparty-cli`) or from source. I used the latter approach because currently the pip approach does not pre-create configuration directories and paths (see https://github.com/CounterpartyXCP/counterparty-cli/issues/60), but you may need to first install python3-dev and then upgrade Python 3 `requests` package to be able to do this. If you're having problems with building from source, try `pip3 install --no-use-wheel counterparty-lib` and then install counterparty-cli.
  
  ```
  wget https://github.com/CounterpartyXCP/counterparty-lib/archive/master.zip
@@ -39,7 +38,7 @@ counterparty-cli can be installed with pip3 (`sudo pip3 install counterparty-cli
 
 ## Configuration Files and Their Locations
 
-### Bitcoin Core 0.10.2 (or 0.11.1)
+### Bitcoin Core 0.12.0
 
 Default location: `/home/USER/.bitcoin/bitcoin.conf` (if you have a separate config file for testnet, consider using `bitcoin.testnet.conf`; replace `USER` with your user name).
 
@@ -50,20 +49,18 @@ rpcpassword = PaSS
 txindex = 1
 server = 1
 addrindex = 1
-rpcthreads = 1000
+# rpcthreads = 1000       # Counterparty Federated Node has this, but it's not necessary in my opinion
 rpctimeout = 300
-minrelaytxfee = 0.00005
-limitfreerelay = 0
 testnet = 1
+# minrelaytxfee = 0.00005 # unnecessary since Bitcoin Core 0.12; old antispam measure from 0.11
+# limitfreerelay = 0      # unnecessary since Bitcoin Core 0.12; old antispam measure from 0.11
 ```
 
-If you only run Bitcoin Core on testnet (i.e. you have no `bitcoin.conf`), consider renaming the configuration file to `bitcoin.conf` - it's probably easier that way. 
+If you only run Bitcoin Core on testnet (i.e. you have no need for `bitcoin.conf`), consider renaming the configuration file to `bitcoin.conf` - it's probably easier that way because then you can run Bitcoin Core without `-testnet`. 
 
 ### Counterparty Client and Server (counterparty-cli)
 
-I made Counterparty to require `sudo` because they contain wallet password(s). For testnet this could be relaxed. 
-
-Although these are used on testnet I deliberately did not name the files like `server.testnet.conf` because then I would have to pass the config file path and name to `counterparty-client`.  Because I run testnet most of the time, this makes it easier to use the CLI.
+Although these are used on testnet I deliberately did not name the files like `server.testnet.conf` because then I would have to pass the config file path and name to `counterparty-client`, as well as use `--testnet` every time I run any counterparty-cli command.  Because I run testnet most of the time, this makes it easier for me to use the CLI.
 
 #### Server
 
@@ -96,29 +93,29 @@ counterparty-rpc-user = counterparty-rpc
 counterparty-rpc-password = WoRD
 testnet = 1
 ```
- 
 
 ## Start Services
 
 ### Bitcoin Core
 
-I assume your user name is `USER`. Change as required.
+I assume your user name is `USER`. Change as required. If your config file is $HOME/.bitcoin/bitcoin.conf, it's enough to run `bitcoind` without any options.
 
-`$ sudo bitcoin-0.10.2/bin/bitcoind --conf=/home/USER/.bitcoin/bitcoin.testnet.conf`
+`$ bitcoin-0.12.0/bin/bitcoind --conf=/home/USER/.bitcoin/bitcoin.testnet.conf`
 
 NOTES: 
-1) For additional security it's good to require the user to be a sudoer.
-2) I downloaded statically compiled binaries from BTCDrak and extracted the archive in my home directory: 
+1) I downloaded statically compiled binaries from BTCDrak and extracted the archive in my home directory, that's why my path looks like it does:
+
 ```
-$ cd $HOME; dir bitcoin-0.10.2/bin/
+$ cd $HOME; dir bitcoin-0.12.0/bin/
 bitcoin-cli  bitcoind  bitcoin-qt  bitcoin-tx  test_bitcoin  test_bitcoin-qt
 ```
+2) If you built from source or installed someone's binaries or modified your `$PATH`, you wouldn't use full paths to Bitcoin Core binaries.
 
 ### Counterparty Server
 
 `$ sudo counterparty-server start`
 
-No additional arguments are required if `server.conf` is in its default location.
+No additional arguments are required if `server.conf` is in its default location. If your config file is `server.testnet.conf`, then `--testnet` or `--config-file <FULL-PATH-TO-COUNTERPARTY-SERVER.CONF>` have to be specified when starting.
 
 ## Test Clients
 
@@ -127,32 +124,32 @@ No additional arguments are required if `server.conf` is in its default location
 If your config file has a non-default name, use `--conf` to tell bitcoin-cli where to find it.
 
 ```
-$ bitcoin-0.10.2/bin/bitcoin-cli --conf=/home/USER/.bitcoin/bitcoin.testnet.conf getinfo
+$ bitcoin-0.12.0/bin/bitcoin-cli -conf=/home/USER/.bitcoin/bitcoin.testnet.conf getinfo
 {
-    "version" : 100200,
-    "protocolversion" : 70002,
-    "walletversion" : 60000,
-    "balance" : 0.00000000,
-    "blocks" : 800,
-    "timeoffset" : 0,
-    "connections" : 8,
-    "proxy" : "",
-    "difficulty" : 1.00000000,
-    "testnet" : true,
-    "keypoololdest" : 1438597749,
-    "keypoolsize" : 101,
-    "paytxfee" : 0.00000000,
-    "relayfee" : 0.00005000,
-    "errors" : ""
+  "version": 120000,
+  "protocolversion": 70012,
+  "walletversion": 60000,
+  "balance": 0.00000000,
+  "blocks": 403306,
+  "timeoffset": -1,
+  "connections": 8,
+  "proxy": "",
+  "difficulty": 165496835118.2263,
+  "testnet": false,
+  "keypoololdest": 1456568065,
+  "keypoolsize": 101,
+  "paytxfee": 0.00000000,
+  "relayfee": 0.00001000,
+  "errors": "WARNING: check your network connection, 5 blocks received in the last 4 hours (24 expected)"
 }
 ```
 
 ### Counterparty Client
 
-No additional arguments are required if `client.conf` is in its default location. Otherwise use `--config-file=` to tell the client where to find it. Use `counterparty-client --help` to see other options.
+No additional arguments are required if `client.conf` is in its default location. Otherwise use `--config-file=` and/or `--testnet` to tell the client where to find it and to use testnet if necessary. Use `counterparty-client --help` to see other options.
 
 ```
-$ sudo counterparty-client getinfo
+$ counterparty-client getinfo
 [INFO] Running v1.1.1 of counterparty-client.
 Unhandled Exception
 Traceback (most recent call last):
@@ -171,10 +168,11 @@ Traceback (most recent call last):
 counterpartycli.util.RPCError: 503 SERVICE UNAVAILABLE {"code": -32000, "data": "Bitcoind is running about 26293 hours behind.", "message": "Server error"}
 ```
 
-The error means the local instance of bitcoind is running behind, but the client is working fine.
+The error means the local instance of bitcoind is running behind, but otherwise client can clearly connect to counterparty-server and is working fine.
 
 ## Counterparty Cheat Sheet
 
-I put together a cheat sheet that applies to counterparty-lib 9.52 and BTCDrak's Bitcoin Core 0.10.2 (as well as 0.11.1). It cointains the above information for Ubuntu 14.04 and Windows 7/8/10 x64:
+I put together a cheat sheet that applies to counterparty-lib 9.54.0 and BTCDrak's Bitcoin Core 0.12. It cointains the above information for Ubuntu 14.04 and Windows 7/8/10 x64:
 
-https://www.dropbox.com/s/et1t7ctio4u6k20/counterparty-lib-9.52-cheatsheet.pdf
+Current version: https://www.dropbox.com/s/zg818p97tdnp48u/counterparty-lib-cheatsheet_9.54.pdf
+Previous version: https://www.dropbox.com/s/et1t7ctio4u6k20/counterparty-lib-9.52-cheatsheet.pdf
