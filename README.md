@@ -172,7 +172,7 @@ The error means the local instance of bitcoind is running behind, but otherwise 
 
 ## Counterparty Cheat Sheet
 
-I put together a cheat sheet that applies to counterparty-lib 9.54.0 and BTCDrak's Bitcoin Core 0.12. It cointains the above information for Ubuntu 14.04 and Windows 7/8/10 x64:
+I put together a cheat sheet that applies to counterparty-lib 9.54.0 and Bitcoin Core 0.12.0 addrindex. It cointains a condensed (1 page) information for Ubuntu 14.04 and Windows 7/8/10 x64:
 
-Current version: https://www.dropbox.com/s/zg818p97tdnp48u/counterparty-lib-cheatsheet_9.54.pdf
-Previous version: https://www.dropbox.com/s/et1t7ctio4u6k20/counterparty-lib-9.52-cheatsheet.pdf
+* Current version: https://www.dropbox.com/s/zg818p97tdnp48u/counterparty-lib-cheatsheet_9.54.pdf
+* Previous version: https://www.dropbox.com/s/et1t7ctio4u6k20/counterparty-lib-9.52-cheatsheet.pdf
