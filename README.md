@@ -5,8 +5,9 @@ To modify for mainnet, remove `testnet=1` from files and commands and come up wi
 
 Tested with:
 
+* Ubuntu 16.04 and Ubuntu 14.04 x86
 * Bitcoin Core 0.12 (https://github.com/btcdrak/bitcoin/releases/tag/v0.12.0-addrindex)
-* counterparty-cli 1.1.1 and counterparty-lib 9.54
+* counterparty-cli 1.1.2 and counterparty-lib 9.55
 
 ```
 $ counterparty-client --version
@@ -20,20 +21,21 @@ Bitcoin Core RPC client version addrindex-0.12.0
 Follow the official documentation:
 
 * Install Bitcoin Core 0.12 with addrindex patch: https://github.com/CounterpartyXCP/Documentation/blob/master/Installation/bitcoin_core.md 
-* Install counterparty-cli (server + client package; `counterparty-lib` installs as their dependency): https://github.com/CounterpartyXCP/Documentation/blob/master/CLI/counterparty-cli.md
-counterparty-cli can be installed with pip3 (`sudo pip3 install counterparty-cli`) or from source. I used the latter approach because currently the pip approach does not pre-create configuration directories and paths (see https://github.com/CounterpartyXCP/counterparty-cli/issues/60), but you may need to first install python3-dev and then upgrade Python 3 `requests` package to be able to do this. If you're having problems with building from source, try `pip3 install --no-use-wheel counterparty-lib` and then install counterparty-cli.
+* Install counterparty-cli (server + client package; `counterparty-lib` installs as their dependency)
+* counterparty-cli can be installed with pip3 (`sudo pip3 install counterparty-cli`) or from source. I used the latter approach here, but you may need to first install python3-dev and then upgrade Python 3 `requests` package to be able to do this. If you're having problems with building from source using the approach below, try `pip3 install --no-use-wheel counterparty-lib` and then install counterparty-cli.
  
  ```
  wget https://github.com/CounterpartyXCP/counterparty-lib/archive/master.zip
  mv master.zip lib.zip
  unzip lib.zip; cd counterparty-lib-master
+ sudo pip3 install -r requirements.txt
  sudo python3 setup.py install
  cd ..
  wget https://github.com/CounterpartyXCP/counterparty-cli/archive/master.zip
  mv master.zip cli.zip
  unzip cli.zip; cd counterparty-cli-master
+ sudo pip3 install -r requirements.txt
  sudo python3 setup.py install
-
  ```
 
 ## Configuration Files and Their Locations
@@ -61,7 +63,7 @@ If you only run Bitcoin Core on testnet (i.e. you have no need for `bitcoin.conf
 
 ### Counterparty Client and Server (counterparty-cli)
 
-Although these are used on testnet I deliberately did not name the files like `server.testnet.conf` because then I would have to pass the config file path and name to `counterparty-client`, as well as use `--testnet` every time I run any counterparty-cli command.  Because I run testnet most of the time, this makes it easier for me to use the CLI.
+Although these are used on testnet I deliberately did not name the files like `server.testnet.conf` because then I would have to pass the config file path and name to `counterparty-client` every time I run any counterparty-cli command on testnet. Because I run testnet most of the time, testnet config files named like this make it easier for me to use the CLI on testnet.
 
 #### Server
 
@@ -116,7 +118,7 @@ bitcoin-cli  bitcoind  bitcoin-qt  bitcoin-tx  test_bitcoin  test_bitcoin-qt
 
 `$ sudo counterparty-server start`
 
-No additional arguments are required if `server.conf` is in its default location. If your config file is `server.testnet.conf`, then `--testnet` or `--config-file <FULL-PATH-TO-COUNTERPARTY-SERVER.CONF>` have to be specified when starting.
+No additional arguments are required if `server.conf` is in its default location. If your config file is `server.testnet.conf`, then `--config-file <FULL-PATH-TO-COUNTERPARTY-SERVER.CONF>` have to be specified when starting.
 
 ## Test Clients
 
@@ -173,7 +175,7 @@ The error means the local instance of bitcoind is running behind, but otherwise 
 
 ## Counterparty Cheat Sheet
 
-I put together a cheat sheet that applies to counterparty-lib 9.54.0 and Bitcoin Core 0.12.0 addrindex. It cointains a condensed (1 page) information for Ubuntu 14.04 and Windows 7/8/10 x64:
+I put together a cheat sheet that applies to counterparty-lib 9.54.0 and Bitcoin Core 0.12.0 addrindex. It cointains a condensed (1 page) information for Ubuntu 14.04 and Windows 7/8/10 x64 and currently also applies to Ubuntu 16.04, counterparty-lib 9.55 and counterparty-cli 1.1.2:
 
 * Current version: https://www.dropbox.com/s/zg818p97tdnp48u/counterparty-lib-cheatsheet_9.54.pdf
 * Previous version: https://www.dropbox.com/s/et1t7ctio4u6k20/counterparty-lib-9.52-cheatsheet.pdf
