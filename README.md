@@ -175,6 +175,6 @@ The error means the local instance of bitcoind is running behind, but otherwise 
 
 ## Counterparty Cheat Sheet
 
-I put together a cheat sheet that applies to counterparty-lib 9.54.0 and Bitcoin Core 0.12.0 addrindex. It cointains a condensed (1 page) information for Ubuntu 14.04 and Windows 7/8/10 x64 and currently also applies to Ubuntu 16.04, counterparty-lib 9.55 and counterparty-cli 1.1.2:
+I put together a cheat sheet that applies to counterparty-lib and Bitcoin Core 0.12.0 addrindex. It cointains a condensed (1 page) information for Ubuntu 14.04/16.04 and Windows 7/8/10 x64 and applies to counterparty-lib 9.55 and counterparty-cli 1.1.2:
 
 * Current version: https://www.dropbox.com/s/4gyjnp32abb3elt/counterparty-lib-cheatsheet_9.55.pdf
