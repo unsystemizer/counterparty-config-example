@@ -110,7 +110,7 @@ chmod 700 $HOME/.config/counterparty/server.conf
 chmod 700 $HOME/.config/counterparty/client.conf
 chmod 700 $HOME/.bitcoin/bitcoin.conf
 
-echo "You may want to recursively change the ownership of 
+echo "You may want to recursively change the ownership of "
 echo ".bitcoin and .config/counterparty if the owner is not"
 echo "supposed to be " `whoami`
 
