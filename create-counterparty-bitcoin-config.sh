@@ -8,6 +8,8 @@
 #  overwrites default configuration files for Counterparty and Bitcoin.
 # Configuration files use default locations.
 
+# NOTE: for Mainnet uses you MUST change the passwords!!!
+
 # Set this to $HOME of user who will run Counterparty and Bitcoin
 # 1) If you don't have enough space on /home and want to create xcp's home in
 #    /external/xcp, run "sudo useradd --create-home /external/xcp".
@@ -42,7 +44,7 @@ echo "If you have existing Counterparty and Bitcoin files they will be "
 echo " overwritten"
 echo ""
 echo "To interrupt this script press CTRL+C echo within 5 seconds"
-
+echo ""
 sleep 6
 
 # If you already have a copy of blockchain somewhere on the network
@@ -113,6 +115,9 @@ chmod 700 $HOME/.bitcoin/bitcoin.conf
 echo "You may want to recursively change the ownership of "
 echo ".bitcoin and .config/counterparty if the owner is not"
 echo "supposed to be " `whoami`
+echo ""
+echo "Please note these config files are for mainnet (testnet=1 to use testnet)"
+echo "Change both the usernames and passwords as soon as you get the services to work!"
 
 # Now you can start services **AS THE USER WHO OWNS THIS DATA** or sudo-er.
 # 1) If you created the xcp account to run, you need to "su - xcp" before
