@@ -48,6 +48,7 @@ sleep 6
 # If you already have a copy of blockchain somewhere on the network
 #  just change "rpc-host"
 
+# Server
 cat << EOF > $HOME/.config/counterparty/server.conf
 [Default]
 # What kind of bitcoin server am I using?
@@ -63,6 +64,7 @@ rpc-password = WoRD
 testnet = 0
 EOF
 
+# Client
 cat << EOF > $HOME/.config/counterparty/client.conf
 [Default]
 wallet-name = bitcoincore # Only "Bitcoin Core addrindex" is suported
@@ -72,6 +74,33 @@ wallet-user = bitcoin-rpc
 wallet-password = PaSS
 # Where's my counterparty-server?
 counterparty-rpc-connect = localhost
+# How do I connect to its RPC service?
+counterparty-rpc-user = counterparty-rpc
+counterparty-rpc-password = WoRD
+# Should this run on testnet?
+testnet = 0
+EOF
+
+# Bitcoin Core addrindex
+# Download from https://github.com/btcdrak/bitcoin/releases
+cat << EOF > $HOME/.bitcoin/bitcoin.conf
+# My Bitcoin RPC credentials
+rpcuser = bitcoin-rpc
+rpcpassword = PaSS
+# I need these 2 indexes (and can't use a pruned blockchain)
+txindex = 1
+addrindex = 1
+# Is this Bitcoin Core going to serve RPC clients? Of course
+server = 1
+# Should it run in background (1=yes, 0=no)
+daemon = 1 # With this you need to stop bitcoind with "bitcoin-cli stop"
+rpctimeout = 300
+# Should this run on testnet?
+testnet = 0
+# maxmempool = 32         # Optional "RAM exhaustion protection" (the default is 300 MB) for small systems
+# minrelaytxfee = 0.00005 # Now rather unnecessary since Bitcoin Core 0.12 manages this automatically
+# limitfreerelay = 0      # Now rather unnecessary since Bitcoin Core 0.12 manages this automatically
+EOF
 
 # These configuration files should not be readable by other users
 # Ownership should belong to the user who will run these services
