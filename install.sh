@@ -16,7 +16,7 @@ sudo apt-get update; sudo apt-get upgrade -y
 # Install necessary files and upgrade pip
 sudo apt-get install openssh-server unzip wget build-essential python3-dev -y
 wget https://bootstrap.pypa.io/get-pip.py; sudo python3 get-pip.py
-sudo apt-get install python3-setuptools
+sudo apt-get install python3-setuptools -y
 
 # A reboot is recommended but sometimes not strictly necessary
 # sudo reboot 
@@ -41,6 +41,12 @@ unzip cli.zip
 cd counterparty-cli-master/
 sudo pip3 install -r requirements.txt
 sudo python3 setup.py install
+
+# If you are not root (you shouldn't be), you should revert the ownership
+#  of to yourself:
+
+sudo chown -R `whoami` .bitcoin .config/counterparty
+sudo chmod -R 700 `whoami` .bitcoin .config/counterparty
 
 # Remove the downloaded stuff if you don't need it:
 # rm -rf counterparty-client counterparty-server cli.zip lib.zip get-pip.py
