@@ -127,6 +127,8 @@ echo "Change both the usernames and passwords as soon as you get the services to
 #    to stop it you need to run "bitcoin-cli stop" or
 #    "bitcoin-cli -conf $HOME/.bitcoin/bitcoin.conf stop" (as the owning
 #    user). If you chown-ed the directory by root, add sudo before the command.
+# 3) If you changed testnet to 1, add '-testnet' in front of each bitcoin command
+#    and '--testnet' in front of each counterparty-client and counterparty-server command
 #
 # bitcoind -conf $HOME/.bitcoin/bitcoin.conf
 #
