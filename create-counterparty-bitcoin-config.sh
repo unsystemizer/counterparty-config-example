@@ -155,8 +155,8 @@ echo "Change both the usernames and passwords as soon as you get the services to
 # If bitcoind hasn't caught up yet, it may err catching up with it:
 # "First block in database is not block XXXXX"
 # This means you need to wait until Bitcoin Core has downloaded more blocks.
-# If it stops like that, just re-run it after Bitcoin Core is pasat block XXXXX
-# You can counterparty-server with CTRL+C if you need to.
+# If it stops like that, just re-run it after Bitcoin Core has downloaded block XXXXX
+# You can stop counterparty-server with CTRL+C if you need to.
 #
 # counterparty-server start
 #
