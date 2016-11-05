@@ -47,12 +47,13 @@ echo "To interrupt this script press CTRL+C echo within 5 seconds"
 echo ""
 sleep 6
 
-# If you already have a copy of blockchain somewhere on the network
-#  just change "rpc-host"
-
 # Server
 cat << EOF > $HOME/.config/counterparty/server.conf
 [Default]
+# Where is my Bitcoin Core? Note: if not on localhost, you may need to 
+# consider adding this host to "rpcallowip" in bitcoin.conf
+# Also "rpcbind" would have to be active on IP where CP will access it.
+backend-connect = 127.0.0.1
 # What kind of bitcoin server am I using?
 backend-name = addrindex # Only "Bitcoin Core addrindex" is suported now
 backend-user = bitcoin-rpc
@@ -70,7 +71,7 @@ EOF
 cat << EOF > $HOME/.config/counterparty/client.conf
 [Default]
 wallet-name = bitcoincore # Only "Bitcoin Core addrindex" is suported
-# Where's my bitcoin?
+# Where's my bitcoin? If not here, enter correct IP address
 wallet-connect = localhost
 wallet-user = bitcoin-rpc
 wallet-password = PaSS
