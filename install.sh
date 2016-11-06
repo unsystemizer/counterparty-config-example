@@ -11,24 +11,20 @@
 #       can be discussed on counterpartytalk.org.
 
 
-# Update the OS
+# Update the Ubuntu 16.04 x64
 sudo apt-get update; sudo apt-get upgrade -y
-# Install necessary files and upgrade pip
+# Install necessary packages and upgrade pip3
 sudo apt-get install openssh-server unzip wget build-essential python3-dev -y
 wget https://bootstrap.pypa.io/get-pip.py; sudo python3 get-pip.py
-sudo apt-get install python3-setuptools -y
 
-# A reboot is recommended but sometimes not strictly necessary
+# A reboot is recommended here but sometimes not necessary
 # sudo reboot 
 # If you've rebooted, delete the part above and re-run (or copy-paste
 # the part below into Bash shell)
 
 # Server 
 wget https://github.com/CounterpartyXCP/counterparty-lib/archive/master.zip
-mv master.zip lib.zip
-apt-get install unzip -y
-sudo apt-get install -y
-unzip lib.zip
+mv master.zip lib.zip; unzip lib.zip
 cd counterparty-lib-master/
 sudo pip3 install -r requirements.txt
 sudo python3 setup.py install
@@ -36,8 +32,7 @@ cd ..
 
 # Client 
 wget https://github.com/CounterpartyXCP/counterparty-cli/archive/master.zip
-mv master.zip cli.zip
-unzip cli.zip
+mv master.zip cli.zip; unzip cli.zip
 cd counterparty-cli-master/
 sudo pip3 install -r requirements.txt
 sudo python3 setup.py install
@@ -61,3 +56,6 @@ echo "https://github.com/unsystemizer/counterparty-config-example"
 echo ""
 echo "On the same page there's also a dumb script that can overwrite"
 echo "existing (default) config files for you."
+echo ""
+echo "Now you may remove cli.zip, lib.zip and get-pip.py"
+echo "How-to: rm cli.zip lib.zip get-pip.py"
