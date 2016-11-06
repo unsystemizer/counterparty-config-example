@@ -20,9 +20,9 @@ Bitcoin Core RPC client version addrindex-0.12.0
 
 Follow the official documentation:
 
-* Install Bitcoin Core 0.12 with addrindex patch: https://github.com/CounterpartyXCP/Documentation/blob/master/Installation/bitcoin_core.md 
-* Install counterparty-cli (server + client package; `counterparty-lib` installs as their dependency)
-* counterparty-cli can be installed with pip3 (`sudo pip3 install counterparty-cli`) or from the source. I used the latter approach here, but you may need to first install python3-dev and then upgrade Python 3 `requests` package to be able to do this. If you're having problems with building from source using the approach below, try `pip3 install --no-use-wheel counterparty-lib` and then install counterparty-cli. You must fix any dependency conflicts that arise when installing modules from requirements.txt.
+* Install Bitcoin Core 0.12.1 or newer with addrindex patch: https://github.com/CounterpartyXCP/Documentation/blob/master/Installation/bitcoin_core.md 
+* Install counterparty-cli (server + client package; `counterparty-lib` installs as a dependency)
+counterparty-server can be installed with pip3 (`sudo pip3 install counterparty-cli`) or from the source.  
  
  ```
  wget https://github.com/CounterpartyXCP/counterparty-lib/archive/master.zip
@@ -38,9 +38,11 @@ Follow the official documentation:
  sudo python3 setup.py install
  ```
 
+The above assumes you installed some OS packages (required for compiling from the source). You can find a that does everything [right here](https://github.com/unsystemizer/counterparty-config-example/blob/master/install.sh). It has been tested to work on Ubuntu 16.04 x64. Install with sudo as a non-root accout.
+
 ## Configuration Files and Their Locations
 
-### Bitcoin Core 0.12.0
+### Bitcoin Core 0.12.1
 
 Default location: `/home/USER/.bitcoin/bitcoin.conf` (if you have a separate config file for testnet, consider using `bitcoin.testnet.conf`; replace `USER` with your user name).
 
@@ -67,6 +69,8 @@ Although these are used on testnet I deliberately did not name the files like `s
 
 #### Server
 
+`backend-connect` tells Counterparty server where Bitcoin Core is. If on another host, change the IP.
+
 Default location: `/home/USER/.config/counterparty/server.conf`
 
 ```
@@ -75,6 +79,7 @@ $ cd $HOME; sudo cat .config/counterparty/server.conf
 backend-name = addrindex
 backend-user = bitcoin-rpc
 backend-password = PaSS
+backend-connect = 127.0.0.1
 rpc-host = localhost
 rpc-user = counterparty-rpc
 rpc-password = WoRD
@@ -82,6 +87,9 @@ testnet = 1
 ```
 
 #### Client
+
+* `wallet-connect` tells Counterparty client where Bitcoin Core is. If on another host, change the IP.
+* Likewise for `counterparty-rpc-connect` - if Counterparty Server is elsewhere, change it, and then in server.conf change `rpc-host` to listen on LAN instead of localhost.
 
 Default location: `/home/USER/.config/counterparty/client.conf`
 
@@ -94,6 +102,7 @@ wallet-connect = localhost
 wallet-name = bitcoincore
 counterparty-rpc-user = counterparty-rpc
 counterparty-rpc-password = WoRD
+counterparty-rpc-connect = localhost
 testnet = 1
 ```
 
