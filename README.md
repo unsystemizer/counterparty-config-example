@@ -5,14 +5,14 @@ To modify for mainnet, remove `testnet=1` from files and commands and come up wi
 
 Tested with:
 
-* Ubuntu 16.04 and Ubuntu 14.04 x86
-* Bitcoin Core 0.12 (https://github.com/btcdrak/bitcoin/releases/tag/v0.12.0-addrindex)
+* Ubuntu 16.04
+* Bitcoin Core 0.12/0.13/0.14 (https://github.com/btcdrak/bitcoin/releases/)
 * counterparty-cli 1.1.2 and counterparty-lib 9.55
 
 ```
 $ counterparty-client --version
-counterparty-client v1.1.1; counterparty-lib v9.54
-$ bitcoin-0.12.0/bin/bitcoin-cli --version
+counterparty-client v1.1.1; counterparty-lib v9.55
+$ bitcoin-0.12.0/bin/bitcoin-cli -version
 Bitcoin Core RPC client version addrindex-0.12.0
 ```
 
@@ -38,11 +38,11 @@ counterparty-server can be installed with pip3 (`sudo pip3 install counterparty-
  sudo python3 setup.py install
  ```
 
-The above assumes you installed some OS packages (required for compiling from the source). You can find a that does everything [right here](https://github.com/unsystemizer/counterparty-config-example/blob/master/install.sh). It has been tested to work on Ubuntu 16.04 x64. Install with sudo as a non-root accout.
+The above assumes you installed some OS packages (required for compiling from the source). You can find a that does everything [right here](https://github.com/unsystemizer/counterparty-config-example/blob/master/install.sh). It has been tested to work on Ubuntu 16.04 x64. Install with sudo as a non-root account (although you can install in a virtual environment, too).
 
 ## Configuration Files and Their Locations
 
-### Bitcoin Core 0.12.1
+### Bitcoin Core 0.14
 
 Default location: `/home/USER/.bitcoin/bitcoin.conf` (if you have a separate config file for testnet, consider using `bitcoin.testnet.conf`; replace `USER` with your user name).
 
@@ -69,7 +69,7 @@ Although these are used on testnet I deliberately did not name the files like `s
 
 #### Server
 
-`backend-connect` tells Counterparty server where Bitcoin Core is. If on another host, change the IP.
+`backend-connect` tells Counterparty server where Bitcoin Core is. If it's installed on a different host from the client, change rpc-host to LAN IP of the counterparty-server.
 
 Default location: `/home/USER/.config/counterparty/server.conf`
 
@@ -88,7 +88,7 @@ testnet = 1
 
 #### Client
 
-* `wallet-connect` tells Counterparty client where Bitcoin Core is. If on another host, change the IP.
+* `wallet-connect` tells Counterparty client where Bitcoin Core is. If Bitcoin server is running on another host, change the server's IP in `wallet-connect`.
 * Likewise for `counterparty-rpc-connect` - if Counterparty Server is elsewhere, change it, and then in server.conf change `rpc-host` to listen on LAN instead of localhost.
 
 Default location: `/home/USER/.config/counterparty/client.conf`
@@ -125,7 +125,7 @@ bitcoin-cli  bitcoind  bitcoin-qt  bitcoin-tx  test_bitcoin  test_bitcoin-qt
 
 ### Counterparty Server
 
-`$ sudo counterparty-server start`
+`$ counterparty-server start`
 
 No additional arguments are required if `server.conf` is in its default location. If your config file is `server.testnet.conf`, then `--config-file <FULL-PATH-TO-COUNTERPARTY-SERVER.CONF>` have to be specified when starting.
 
@@ -133,7 +133,7 @@ No additional arguments are required if `server.conf` is in its default location
 
 ### Bitcoin Client
 
-If your config file has a non-default name, use `--conf` to tell bitcoin-cli where to find it.
+If your config file has a non-default name, use `-conf` to tell bitcoin-cli where to find it.
 
 ```
 $ bitcoin-0.12.0/bin/bitcoin-cli -conf=/home/USER/.bitcoin/bitcoin.testnet.conf getinfo
