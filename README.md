@@ -112,7 +112,7 @@ testnet = 1
 
 I assume your user name is `USER`. Change as required. If your config file is $HOME/.bitcoin/bitcoin.conf, it's enough to run `bitcoind` without any options.
 
-`$ bitcoin-0.12.0/bin/bitcoind --conf=/home/USER/.bitcoin/bitcoin.testnet.conf`
+`$ bitcoin-0.12.0/bin/bitcoind -conf=/home/USER/.bitcoin/bitcoin.testnet.conf`
 
 NOTES: 
 1) I downloaded statically compiled binaries from BTCDrak and extracted the archive in my home directory, that's why my path looks like it does:
